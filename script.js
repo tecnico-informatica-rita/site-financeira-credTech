@@ -32,6 +32,5 @@ function validarTelefone(telefone){
 }
 
 
-
 // leitura de variáveis
 let nome = document.getElementById("nome")
