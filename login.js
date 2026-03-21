@@ -35,6 +35,12 @@ function validarSenha(senha){
     return [true, "Válido"];
 }
 
+
+// ============================================================================================================================
+// ====================== validação automática ==================================================================================
+// ============================================================================================================================
+
+
 function validacaoAutomaticaLogin(id_usuario, erro_usuario_input, id_senha, erro_senha_input, validar_usuario, validar_senha){
     const form = document.getElementById("formLogin");
     const id_input_u = document.getElementById(id_usuario);
@@ -110,6 +116,7 @@ function validacaoAutomaticaLogin(id_usuario, erro_usuario_input, id_senha, erro
     });
 }
 
+// limpar os dados da página de login
 window.addEventListener("pageshow", function(event) {
     const form = document.getElementById("formLogin");
     form.reset();
@@ -117,6 +124,7 @@ window.addEventListener("pageshow", function(event) {
     document.getElementById("erro_senha").textContent = "";
 });
 
+// remover o login assim que ele for efetuado
 window.addEventListener("DOMContentLoaded", function() {
     sessionStorage.removeItem("logado");
 });

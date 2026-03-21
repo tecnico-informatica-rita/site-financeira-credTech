@@ -1,5 +1,5 @@
+// não permitir que a pessoa entre na página sem login
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("Verificando login...");
     if(sessionStorage.getItem("logado") !== "true") {
         window.location.href = "index.html";
     }
