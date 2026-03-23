@@ -1,0 +1,60 @@
+/*Body -----------------------------------------------------------------*/
+body {
+    background-color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/*Página de Login -----------------------------------------------------------------*/
+.content {
+    display: flex;
+}
+/* caixa da imagem */
+.box_img {
+    width: 45%;
+    height: 670px;
+    padding: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+/* imagem */
+.box_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+/*Container com o texto do Login*/
+#dados_login {
+    max-width: 1100px;
+    margin: 0 auto;
+    margin-top: 120px;
+    text-align: left;
+}
+/*Formulário*/
+#formLogin #usuario, #formLogin #senha {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border-color: #f95b10;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#formLogin label{
+    color: #f95b10;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+}
+#formLogin input:focus {
+    border: 2px solid #f95b10;
+    outline: none;
+}
+/*Botão de Login*/
+#_botao_login {
+    width: 108%;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f95b10;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}

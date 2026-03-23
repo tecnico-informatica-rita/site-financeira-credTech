@@ -3,23 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
     <title>Login</title>
 </head>
 <body>
-    <h1>LOGIN</h1>
-    <form id="formLogin">
-        <label for="usuario">Usuário</label><br>
-        <input type="text" id="usuario" name="usuario" placeholder="Digite o seu usuário" required><br>
-        <small id="erro_usuario"></small><br><br>
 
-        <label for="senha">Senha</label><br>
-        <input type="password" id="senha" name="senha" placeholder="Digite sua senha atual" required><br>
-        <small id="erro_senha"></small><br><br>
+    <div class="content">
+        <div class="box_img">
+            <img src="img/login.jpeg" alt="CredTech">
+        </div>
 
-        <button type="submit" id="_botao_login">Entrar</button>
-        
-        
-    </form>
+        <div id="dados_login">
+            <h1>Seja Bem-Vindo(a) - CredTech</h1>
+            <p>Tecnologia que aproxima. Crédito que transforma.</p>
+
+            <form id="formLogin">
+                <label for="usuario">Usuário</label><br>
+                <input type="text" id="usuario" name="usuario" placeholder="Digite o seu usuário" required><br>
+                <small id="erro_usuario"></small><br>
+
+                <label for="senha">Senha</label><br>
+                <input type="password" id="senha" name="senha" placeholder="Digite sua senha atual" required><br>
+                <small id="erro_senha"></small><br><br>
+
+                <button type="submit" id="_botao_login">Entrar</button>
+                
+            </form>
+        </div>
+    </div>
 
     <script src="login.js"></script>
 </body>
