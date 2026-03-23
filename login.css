@@ -10,7 +10,7 @@ body {
 }
 /* caixa da imagem */
 .box_img {
-    width: 45%;
+    width: 50%;
     height: 670px;
     padding: 20px;
     border-radius: 15px;
@@ -25,9 +25,10 @@ body {
 }
 /*Container com o texto do Login*/
 #dados_login {
-    max-width: 1100px;
-    margin: 0 auto;
+    flex: 1;
+    max-width: 500px;
     margin-top: 120px;
+    margin-left: 50px;
     text-align: left;
 }
 /*Formulário*/
@@ -57,4 +58,9 @@ body {
     color: white;
     font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#_botao_login:hover {
+    color: white;
+    background-color: #fdae60;
 }
