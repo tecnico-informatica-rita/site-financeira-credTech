@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empréstimo</title>
+</head>
+<body>
+    <h1>CONFIGURAÇÕES DO EMPRÉSTIMO</h1>
+ 
+        <label for="renda">Renda Mensal Bruta (R$):</label><br>
+        <input type="number" id="renda" step="0.01" name="renda" placeholder="0000.00" min="0" required><br>
+        <small id="erro_renda"></small><br><br>
+
+        <label for="valor_pretendido">Valor pretendido (R$):</label><br>
+        <input type="number" id="valor_pretendido" step="0.01" name="valor_pretendido" placeholder="0000.00" min="0" required><br>
+        <small id="erro_valor_pretendido"></small><br><br>
+ 
+        <label for="parcelas">Quantidade de parcelas:</label>
+        <small>(Mínimo 12x e máximo 48x)</small><br>
+        <select id="parcelas" name="parcelas" required>
+            <option value="">Selecione</option>
+        </select>
+        
+    
+    <br><br><button type="submit">Simular Empréstimo</button>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

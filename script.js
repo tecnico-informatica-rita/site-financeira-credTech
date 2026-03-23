@@ -259,6 +259,33 @@ function validarDinheiro(dinheiro){
     return [true, "Válido"];
 }
 
+// ================= BOTÃO DESATIVADO ATÉ VALIDAR =================
+function verificarFormulario(){
+    const campos = [
+        ["nome", validarTexto],
+        ["cpf", validarCPF],
+        ["telefone", validarTelefone],
+        ["email", validarEmail],
+        ["cep", validarCEP],
+        ["endereco", validarTexto],
+        ["numero", validarNumero],
+        ["cidade", validarTexto],
+        ["bairro", validarTexto]
+    ];
+
+    let tudoValido = true;
+
+    campos.forEach(([id, func]) => {
+        const valor = document.getElementById(id).value;
+        const resultado = func(valor);
+
+        if(!resultado[0]){
+            tudoValido = false;
+        }
+    });
+
+    document.getElementById("botao_cliente").disabled = !tudoValido;
+}
 
 
 // ============================================================================================================================
@@ -307,16 +334,60 @@ function validacaoAutomatica(id, erroId, nome_funcao){
         if (resultado[0] === false){
             erro.textContent = resultado[1];
             erro.style.color = "red";
+            this.style.border = "2px solid red";
         } else {
             if(id_input.id === "cep"){
                 buscarCEP(this.value);
             } else {
                 erro.textContent = "✔";
                 erro.style.color = "green";
+                this.style.color = "2px solid green";
             }
         }
+        verificarFormulario();
     });
 }
+
+
+document.getElementById("form_cliente").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let valido = true;
+
+    const campos = [
+        ["nome", "erro_nome", validarTexto],
+        ["cpf", "erro_cpf", validarCPF],
+        ["telefone", "erro_telefone", validarTelefone],
+        ["email", "erro_email", validarEmail],
+        ["cep", "erro_cep", validarCEP],
+        ["endereco", "erro_endereco", validarTexto],
+        ["numero", "erro_numero", validarNumero],
+        ["cidade", "erro_cidade", validarTexto],
+        ["bairro", "erro_bairro", validarTexto]
+    ];
+
+    campos.forEach(([id, erroId, func]) => {
+        const input = document.getElementById(id);
+        const erro = document.getElementById(erroId);
+
+        const resultado = func(input.value);
+
+        if(!resultado[0]){
+            erro.textContent = resultado[1];
+            erro.style.color = "red";
+            input.style.border = "2px solid red";
+            valido = false;
+        } else {
+            erro.textContent = "✔";
+            erro.style.color = "green";
+            input.style.border = "2px solid green";
+        }
+    });
+
+    if(valido){
+        window.location.href = "emprestimo.html";
+    }
+});
 
 validacaoAutomatica("cidade", "erro_cidade", validarTexto);
 validacaoAutomatica("nome", "erro_nome", validarTexto);
