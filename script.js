@@ -92,30 +92,30 @@ async function buscarCEP(cep){
         document.getElementById("estado").value = dados.uf;
 
         if (!dados.logradouro || dados.logradouro === ""){
-            document.getElementById("endereco").style.border = "2px solid red";
+            document.getElementById("endereco").style.border = "";
             const erro = document.getElementById("erro_endereco");
-            erro.textContent = "Esse campo tem preenchimento obrigatório";
-            erro.style.color = "red";
+            erro.textContent = "";
+            erro.style.color = "";
         } 
         if (!dados.bairro || dados.bairro === ""){
-            document.getElementById("bairro").style.border = "2px solid red";
+            document.getElementById("bairro").style.border = "";
             const erro = document.getElementById("erro_bairro");
-            erro.textContent = "Esse campo tem preenchimento obrigatório";
-            erro.style.color = "red";
+            erro.textContent = "";
+            erro.style.color = "";
         } 
         if (!dados.localidade || dados.localidade === ""){
-            document.getElementById("cidade").style.border = "2px solid red";
+            document.getElementById("cidade").style.border = "";
             const erro = document.getElementById("erro_cidade");
-            erro.textContent = "Esse campo tem preenchimento obrigatório";
-            erro.style.color = "red";
+            erro.textContent = "";
+            erro.style.color = "";
         } 
         if (!dados.uf || dados.uf === ""){
-            document.getElementById("estado").style.border = "2px solid red";
+            document.getElementById("estado").style.border = "";
             const erro = document.getElementById("erro_estado");
-            erro.textContent = "Esse campo tem preenchimento obrigatório";
-            erro.style.color = "red";
+            erro.textContent = "";
+            erro.style.color = "";
         } 
-            erro.textContent = "✔";
+        erro.textContent = "✔";
         erro.style.color = "green";
         input.style.border = "2px solid green";
         return;
@@ -449,5 +449,4 @@ validacaoAutomatica("telefone", "erro_telefone", validarTelefone);
 validacaoAutomatica("numero", "erro_numero", validarNumero);
 validacaoAutomatica("email", "erro_email", validarEmail);
 validacaoAutomatica("cep", "erro_cep", validarCEP);
-
 validacaoAutomatica("estado", "erro_estado", validarEstado);
