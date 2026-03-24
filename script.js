@@ -435,6 +435,7 @@ document.getElementById("form_cliente").addEventListener("submit", function(e){
     });
 
     if(valido){
+        sessionStorage.setItem("nome", document.getElementById("nome").value);
         window.location.href = "emprestimo.html";
     }
 });

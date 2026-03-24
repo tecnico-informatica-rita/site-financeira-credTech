@@ -22,7 +22,7 @@ function validarDinheiro(dinheiro){
         return [false, "Digite apenas números"];
     }
 
-    if (valor < 0){
+    if (valor <= 0){
         return [false, "Número inválido"];
     }
 
@@ -141,6 +141,24 @@ validacaoAutomatica("valor_pretendido", "erro_valor_pretendido", validarDinheiro
 // ============================================================================================================================
 // ====================== regras de negócios ==================================================================================
 // ============================================================================================================================
+function simularNovamente(){
+    document.getElementById("tela_aprovado").style.display = "none";
+    document.getElementById("tela_reprovado").style.display = "none";
+
+    document.getElementById("tela_emprestimo").style.display = "block";
+
+    document.getElementById("form_emprestimo").reset();
+
+    const campos = ["renda", "valor_pretendido", "parcelas"];
+
+    campos.forEach(id => {
+        const input = document.getElementById(id);
+        input.style.border = "";
+    });
+
+    document.getElementById("erro_renda").textContent = "";
+    document.getElementById("erro_valor_pretendido").textContent = "";
+}
 
 function verificarEmprestimo(valor_pretendido, renda, parcelas){
     // taxas de juros ao mês
@@ -157,12 +175,21 @@ function verificarEmprestimo(valor_pretendido, renda, parcelas){
     let rendaMensal30 = (renda_bruta * 30) / 100;
 
     let juros = 0;
+    let taxa = 0;
     if(numParcelas > 0 && numParcelas <= 12){
         juros = credito * taxaJuros1_12 * numParcelas;
+        taxa = 2.5;
     } else if (numParcelas >= 13 && numParcelas <=24){
         juros = credito * taxaJuros13_24 * numParcelas;
+        taxa = 3.5;
     } else if (numParcelas > 24){
         juros = credito * taxaJuros24_ * numParcelas;
+        taxa = 5;
+    }
+
+    if(!numParcelas || numParcelas <= 0){
+        alert("Selecione o número de parcelas");
+        return;
     }
 
     let valorParcela = (credito + juros)/ numParcelas;
@@ -170,8 +197,30 @@ function verificarEmprestimo(valor_pretendido, renda, parcelas){
     document.getElementById("tela_emprestimo").style.display = "none";
     if (valorParcela > rendaMensal30){
         document.getElementById("tela_reprovado").style.display = "block";
+
+        const nome = sessionStorage.getItem("nome") || "Cliente";
+        document.getElementById("mensagem_reprovado").textContent = `${nome}, infelizmente seu empréstimo não foi aprovado.`;
+        document.getElementById("res_renda").textContent = renda_bruta.toFixed(2);
+        document.getElementById("res_30").textContent = rendaMensal30.toFixed(2);
+        document.getElementById("res_valor_r").textContent = credito.toFixed(2);
+        document.getElementById("res_taxa_r").textContent = taxa.toFixed(2);
+        document.getElementById("res_juros_r").textContent = juros.toFixed(2);
+        document.getElementById("res_parcela_r").textContent = valorParcela.toFixed(2);
+
+
+        document.getElementById("mensagem_reprovado").innerHTML += `<br>O valor da parcela ultrapassa 30% da sua renda mensal, por isso o empréstimo não pode ser concedido.`;
     } else {
         document.getElementById("tela_aprovado").style.display = "block";
+
+        const nome = sessionStorage.getItem("nome") || "Cliente";
+        document.getElementById("mensagem_aprovado").textContent = `Parabéns ${nome}, seu empréstimo foi aprovado!`;
+        document.getElementById("res_valor").textContent = credito.toFixed(2);
+        document.getElementById("res_juros").textContent = juros.toFixed(2);
+        document.getElementById("res_taxa").textContent = taxa.toFixed(2);
+        document.getElementById("res_total").textContent = (credito + juros).toFixed(2);
+        document.getElementById("res_parcelas").textContent = numParcelas
+        document.getElementById("res_parcela").textContent = valorParcela.toFixed(2);
+        document.getElementById("res_meses").textContent = numParcelas;
     }
 }
 
