@@ -10,12 +10,15 @@ document.addEventListener("DOMContentLoaded", function() {
 // ============================================================================================================================
 const select_input = document.getElementById("parcelas");
 
-for(let i=12;i<=48;i++){
-    const option = document.createElement("option");
-    option.value = i;
-    option.textContent = i + "x";
-    select_input.appendChild(option);
+if(select_input){
+    for(let i=12;i<=48;i++){
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = i + "x";
+        select_input.appendChild(option);
+    }
 }
+
 
 // ============================================================================================================================
 // ====================================== validação das entradas de dados ======================================================
@@ -83,7 +86,8 @@ function validarCEP(numero){
 
 async function buscarCEP(cep){
     const numero = cep.replace(/\D/g, "");
-    const erro = document.getElementById("erro_cep")
+    const erro = document.getElementById("erro_cep");
+    const input = document.getElementById("cep");
 
     try {
         const cep_buscado = await fetch(`https://viacep.com.br/ws/${numero}/json/`);
@@ -92,6 +96,7 @@ async function buscarCEP(cep){
         if(dados.erro){
             erro.textContent = "CEP não encontrado";
             erro.style.color = "red";
+            input.style.border = "2px solid red";
             return;
         }
 
@@ -99,12 +104,44 @@ async function buscarCEP(cep){
         document.getElementById("bairro").value = dados.bairro;
         document.getElementById("cidade").value = dados.localidade;
         document.getElementById("estado").value = dados.uf;
-        erro.textContent = "✔";
+
+        if (!dados.logradouro || dados.logradouro === ""){
+            document.getElementById("endereco").style.border = "2px solid red";
+            const erro = document.getElementById("erro_endereco");
+            erro.textContent = "Esse campo tem preenchimento obrigatório";
+            erro.style.color = "red";
+        } 
+        if (!dados.bairro || dados.bairro === ""){
+            document.getElementById("bairro").style.border = "2px solid red";
+            const erro = document.getElementById("erro_bairro");
+            erro.textContent = "Esse campo tem preenchimento obrigatório";
+            erro.style.color = "red";
+        } 
+        if (!dados.localidade || dados.localidade === ""){
+            document.getElementById("cidade").style.border = "2px solid red";
+            const erro = document.getElementById("erro_cidade");
+            erro.textContent = "Esse campo tem preenchimento obrigatório";
+            erro.style.color = "red";
+        } 
+        if (!dados.uf || dados.uf === ""){
+            document.getElementById("estado").style.border = "2px solid red";
+            const erro = document.getElementById("erro_estado");
+            erro.textContent = "Esse campo tem preenchimento obrigatório";
+            erro.style.color = "red";
+        } 
+            erro.textContent = "✔";
         erro.style.color = "green";
+        input.style.border = "2px solid green";
         return;
+        
+        
+
+        
+        
     } catch (e) {
         erro.textContent = "CEP não encontrado";
         erro.style.color = "red";
+        input.style.border = "2px solid red";
         return;
     }
 
@@ -259,6 +296,14 @@ function validarDinheiro(dinheiro){
     return [true, "Válido"];
 }
 
+// ----------------------------------- estado ------------------------------------------------------------------------------
+function validarEstado(valor){
+    if(valor === ""){
+        return [false, "Selecione um estado"];
+    }
+    return [true, "Válido"];
+}
+
 // ================= BOTÃO DESATIVADO ATÉ VALIDAR =================
 function verificarFormulario(){
     const campos = [
@@ -296,6 +341,26 @@ function validacaoAutomatica(id, erroId, nome_funcao){
     const id_input = document.getElementById(id);
     const erro = document.getElementById(erroId);
 
+    if(id_input.tagName === "SELECT"){
+        id_input.addEventListener("change", function(){
+            const resultado = nome_funcao(this.value);
+
+            if(!resultado[0]){
+                erro.textContent = resultado[1];
+                erro.style.color = "red";
+                this.style.border = "2px solid red";
+            } else {
+                erro.textContent = "✔";
+                erro.style.color = "green";
+                this.style.border = "2px solid green";
+            }
+
+        verificarFormulario();
+        });
+
+        return;
+    }
+
     if (id_input.id === "telefone"){
         id_input.addEventListener("input", function(){
             
@@ -331,6 +396,22 @@ function validacaoAutomatica(id, erroId, nome_funcao){
     id_input.addEventListener("blur", function() {
         const resultado = nome_funcao(this.value);
 
+        // ================= CEP (CASO ESPECIAL) =================
+        if(id_input.id === "cep"){
+            const resultado = validarCEP(this.value);
+
+            if(!resultado[0]){
+                erro.textContent = resultado[1];
+                erro.style.color = "red";
+                this.style.border = "2px solid red";
+            } else {
+                buscarCEP(this.value);
+            }
+
+            verificarFormulario();
+            return;
+        }
+
         if (resultado[0] === false){
             erro.textContent = resultado[1];
             erro.style.color = "red";
@@ -341,11 +422,15 @@ function validacaoAutomatica(id, erroId, nome_funcao){
             } else {
                 erro.textContent = "✔";
                 erro.style.color = "green";
-                this.style.color = "2px solid green";
+                this.style.border = "2px solid green";
             }
         }
         verificarFormulario();
     });
+
+
+    
+
 }
 
 
@@ -372,7 +457,7 @@ document.getElementById("form_cliente").addEventListener("submit", function(e){
 
         const resultado = func(input.value);
 
-        if(!resultado[0]){
+        if(resultado[0] === false){
             erro.textContent = resultado[1];
             erro.style.color = "red";
             input.style.border = "2px solid red";
@@ -400,3 +485,4 @@ validacaoAutomatica("email", "erro_email", validarEmail);
 validacaoAutomatica("cep", "erro_cep", validarCEP);
 validacaoAutomatica("renda", "erro_renda", validarDinheiro);
 validacaoAutomatica("valor_pretendido", "erro_valor_pretendido", validarDinheiro);
+validacaoAutomatica("estado", "erro_estado", validarEstado);
