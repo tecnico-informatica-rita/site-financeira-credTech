@@ -6,24 +6,63 @@
     <title>Empréstimo</title>
 </head>
 <body>
-    <h1>CONFIGURAÇÕES DO EMPRÉSTIMO</h1>
  
-        <label for="renda">Renda Mensal Bruta (R$):</label><br>
-        <input type="number" id="renda" step="0.01" name="renda" placeholder="0000.00" min="0" required><br>
-        <small id="erro_renda"></small><br><br>
+    <div id="tela_emprestimo">
+        <h1>CONFIGURAÇÕES DO EMPRÉSTIMO</h1>
+        <form id="form_emprestimo">
+            <label for="renda">Renda Mensal Bruta (R$):</label><br>
+            <input type="number" id="renda" step="0.01" name="renda" placeholder="0000.00" min="0" required><br>
+            <small id="erro_renda"></small><br><br>
 
-        <label for="valor_pretendido">Valor pretendido (R$):</label><br>
-        <input type="number" id="valor_pretendido" step="0.01" name="valor_pretendido" placeholder="0000.00" min="0" required><br>
-        <small id="erro_valor_pretendido"></small><br><br>
+            <label for="valor_pretendido">Valor pretendido (R$):</label><br>
+            <input type="number" id="valor_pretendido" step="0.01" name="valor_pretendido" placeholder="0000.00" min="0" required><br>
+            <small id="erro_valor_pretendido"></small><br><br>
  
-        <label for="parcelas">Quantidade de parcelas:</label>
-        <small>(Mínimo 12x e máximo 48x)</small><br>
-        <select id="parcelas" name="parcelas" required>
-            <option value="">Selecione</option>
-        </select>
-        
+            <label for="parcelas">Quantidade de parcelas:</label>
+            <small>(Mínimo 12x e máximo 48x)</small><br>
+            <select id="parcelas" name="parcelas" required>
+                <option value="">Selecione</option>
+            </select>
     
-    <br><br><button type="submit">Simular Empréstimo</button>
+            <br><br><button type="submit" id="botao_simular" disabled>Simular Empréstimo</button>
+        </form>
+    </div>
+
+    <!-- Uma das duas opções sempre aparece -->
+    <div id="tela_aprovado"  style="display: none;">
+        <h1>RESULTADO DA SIMULAÇÃO DE EMPRÉSTIMO</h1>
+
+        <h3 id="mensagem_aprovado"></h3>
+
+        <p><strong>Valor pretendido:</strong> R$ <span id="res_valor"></span></p>
+        <p><strong>Taxa de juros (ao mês):</strong> <span id="res_taxa"></span>%</p>
+        <p><strong>Valor dos juros (R$):</strong> R$ <span id="res_juros"></span></p>
+        <p><strong>Valor total com juros (R$):</strong> R$ <span id="res_total"></span></p>
+        <p><strong>Número de parcelas:</strong> <span id="res_parcelas"></span></p>
+        <p><strong>Valor da parcela (R$):</strong> R$ <span id="res_parcela"></span></p>
+        <p><strong>Meses para pagamento:</strong> <span id="res_meses"></span></p><br><br>
+
+        <p>Seu empréstimo foi pré-aprovado. Para concluir o processo, procure uma instituição CredTech
+            com seus documentos pessoais e comprovantes de renda e residência. </p>
+    </div>
+
+
+    <div id="tela_reprovado" style="display: none;">
+        <h1>RESULTADO DA SIMULAÇÃO DE EMPRÉSTIMO</h1>
+
+        <h3 id="mensagem_reprovado"></h3>
+
+        <p><strong>Renda mensal:</strong> R$ <span id="res_renda"></span></p>
+        <p><strong>30% da renda:</strong> R$ <span id="res_30"></span></p>
+        <p><strong>Valor pretendido:</strong> R$ <span id="res_valor"></span></p>
+        <p><strong>Taxa de juros (ao mês):</strong> <span id="res_taxa"></span>%</p>
+        <p><strong>Valor dos juros (R$):</strong> R$ <span id="res_juros"></span></p>
+        <p><strong>Valor da parcela (R$):</strong> R$ <span id="res_parcela"></span></p><br><br>
+
+        <p>Tente reduzir o valor solicitado ou aumentar o número de parcelas.</p>
+        <button id="botao_simular_novamente" type="button">Simular novamente</button>
+
+    </div>
 
     <script src="emprestimo.js" defer></script>
 </body>

@@ -5,20 +5,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// ============================================================================================================================
-// =================== função para preencher número de parcelas ===============================================================
-// ============================================================================================================================
-const select_input = document.getElementById("parcelas");
-
-if(select_input){
-    for(let i=12;i<=48;i++){
-        const option = document.createElement("option");
-        option.value = i;
-        option.textContent = i + "x";
-        select_input.appendChild(option);
-    }
-}
-
 
 // ============================================================================================================================
 // ====================================== validação das entradas de dados ======================================================
@@ -278,23 +264,6 @@ function mascaraTelefone(input) {
     input.setSelectionRange(posicaoCursor, posicaoCursor);
 }
 
-// --------------- dinheiro ---------------------------------------------------------------------------------------------------
-function validarDinheiro(dinheiro){
-    if (dinheiro.trim() === ""){
-        return [false, "Esse campo tem preencimento obrigatório"];
-    }
-    let valor = Number(dinheiro.replace(",", "."));
-
-    if (isNaN(valor)){
-        return [false, "Digite apenas números"];
-    }
-
-    if (valor < 0){
-        return [false, "Número inválido"];
-    }
-
-    return [true, "Válido"];
-}
 
 // ----------------------------------- estado ------------------------------------------------------------------------------
 function validarEstado(valor){
@@ -427,10 +396,6 @@ function validacaoAutomatica(id, erroId, nome_funcao){
         }
         verificarFormulario();
     });
-
-
-    
-
 }
 
 
@@ -483,6 +448,5 @@ validacaoAutomatica("telefone", "erro_telefone", validarTelefone);
 validacaoAutomatica("numero", "erro_numero", validarNumero);
 validacaoAutomatica("email", "erro_email", validarEmail);
 validacaoAutomatica("cep", "erro_cep", validarCEP);
-validacaoAutomatica("renda", "erro_renda", validarDinheiro);
-validacaoAutomatica("valor_pretendido", "erro_valor_pretendido", validarDinheiro);
+
 validacaoAutomatica("estado", "erro_estado", validarEstado);

@@ -1,6 +1,4 @@
-// ============================================================================================================================
 // =================== função para preencher número de parcelas ===============================================================
-// ============================================================================================================================
 const select_input = document.getElementById("parcelas");
 
 if(select_input){
@@ -31,7 +29,31 @@ function validarDinheiro(dinheiro){
     return [true, "Válido"];
 }
 
+// ------------------- validar formulário ------------------------------------------------------------------------------------
+// ================= BOTÃO DESATIVADO ATÉ VALIDAR =================
+function verificarFormulario(){
+    const campos = [
+        ["renda", validarDinheiro],
+        ["valor_pretendido", validarDinheiro],
+    ];
 
+    let tudoValido = true;
+
+    campos.forEach(([id, func]) => {
+        const valor = document.getElementById(id).value;
+        const resultado = func(valor);
+
+        if(!resultado[0]){
+            tudoValido = false;
+        }
+    });
+
+    document.getElementById("botao_simular").disabled = !tudoValido;
+}
+
+
+
+// ------------------ validação automática dos campos ---------------------------------------------------------------------------
 function validacaoAutomatica(id, erroId, nome_funcao){
     const id_input = document.getElementById(id);
     const erro = document.getElementById(erroId);
@@ -56,56 +78,9 @@ function validacaoAutomatica(id, erroId, nome_funcao){
         return;
     }
 
-    if (id_input.id === "telefone"){
-        id_input.addEventListener("input", function(){
-            
-            mascaraTelefone(this);
-             
-            erro.textContent = "";
-        });
-    } else if(id_input.id === "cpf"){
-        id_input.addEventListener("input", function(){
-            
-            mascaraCPF(this);
-             
-            erro.textContent = "";
-        });
-    } else if(id_input.id === "cep"){
-        id_input.addEventListener("input", function(){
-            
-            mascaraCEP(this);
-
-            document.getElementById("endereco").value = "";
-            document.getElementById("bairro").value = "";
-            document.getElementById("cidade").value = "";
-            document.getElementById("estado").value = "";
-            erro.textContent = "";
-        });
-    } else {
-        id_input.addEventListener("input", function(){
-            erro.textContent = "";
-        });
-    }
-    
 
     id_input.addEventListener("blur", function() {
         const resultado = nome_funcao(this.value);
-
-        // ================= CEP (CASO ESPECIAL) =================
-        if(id_input.id === "cep"){
-            const resultado = validarCEP(this.value);
-
-            if(!resultado[0]){
-                erro.textContent = resultado[1];
-                erro.style.color = "red";
-                this.style.border = "2px solid red";
-            } else {
-                buscarCEP(this.value);
-            }
-
-            verificarFormulario();
-            return;
-        }
 
         if (resultado[0] === false){
             erro.textContent = resultado[1];
@@ -122,13 +97,40 @@ function validacaoAutomatica(id, erroId, nome_funcao){
         }
         verificarFormulario();
     });
-
-
-    
-
 }
 
+document.getElementById("form_emprestimo").addEventListener("submit", function(e){
+    e.preventDefault();
 
+    let valido = true;
+
+    const campos = [
+        ["renda", "erro_renda", validarDinheiro],
+        ["valor_pretendido","erro_valor_pretendido", validarDinheiro],
+    ];
+
+    campos.forEach(([id, erroId, func]) => {
+        const input = document.getElementById(id);
+        const erro = document.getElementById(erroId);
+
+        const resultado = func(input.value);
+
+        if(resultado[0] === false){
+            erro.textContent = resultado[1];
+            erro.style.color = "red";
+            input.style.border = "2px solid red";
+            valido = false;
+        } else {
+            erro.textContent = "✔";
+            erro.style.color = "green";
+            input.style.border = "2px solid green";
+        }
+    });
+
+    if(valido){
+        verificarEmprestimo("valor_pretendido", "renda", "parcelas");
+    }
+});
 
 validacaoAutomatica("renda", "erro_renda", validarDinheiro);
 validacaoAutomatica("valor_pretendido", "erro_valor_pretendido", validarDinheiro);
@@ -165,10 +167,11 @@ function verificarEmprestimo(valor_pretendido, renda, parcelas){
 
     let valorParcela = (credito + juros)/ numParcelas;
 
+    document.getElementById("tela_emprestimo").style.display = "none";
     if (valorParcela > rendaMensal30){
-        return [false, valorParcela, rendaMensal30];
+        document.getElementById("tela_reprovado").style.display = "block";
     } else {
-        return [true, valorParcela, rendaMensal30];
+        document.getElementById("tela_aprovado").style.display = "block";
     }
 }
 
