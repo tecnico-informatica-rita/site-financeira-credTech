@@ -25,7 +25,7 @@ function validarSenha(senha){
         return [false, "Usuário inválido. A senha deve ter no mímimo 8 caracteres e no máximo 20 caracteres"];
     }
 
-    if(!/[A-Z]/.test(senha) || !/[a-z]/.test(senha) || !/[0-9]/){
+    if(!/[A-Z]/.test(senha) || !/[a-z]/.test(senha) || !/[0-9]/.test(senha)){
         return [false, "Usuário inválido. A senha deve ter pelo menos uma letra maiúscula, uma letra minúscula e um número"];
     }
     if(!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(senha)){
