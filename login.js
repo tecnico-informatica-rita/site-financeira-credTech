@@ -121,8 +121,9 @@ function validacaoAutomaticaLogin(id_usuario, erro_usuario_input, id_senha, erro
             .then(response => response.json())
             .then(data => {
                 if(data.sucesso) {
-            // SÓ AGORA redireciona, pois o banco confirmou
-                window.location.href = "dados_cliente.php"; 
+                    const nomeUsuario = document.getElementById(id_usuario).value;
+                    localStorage.setItem("usuarioLogado", nomeUsuario);
+                window.location.href = "boasvindas.html"; 
                 } else {
                     alert(data.mensagem); // Mostra "Senha incorreta" vindo do PHP
                 }
@@ -141,9 +142,9 @@ window.addEventListener("pageshow", function(event) {
 });
 
 // remover o login assim que ele for efetuado
-window.addEventListener("DOMContentLoaded", function() {
-    sessionStorage.removeItem("logado");
-});
+//window.addEventListener("DOMContentLoaded", function() {
+  //  sessionStorage.removeItem("logado");
+//});
 
 validacaoAutomaticaLogin("usuario", "erro_usuario", "senha", "erro_senha", validarUsuario, validarSenha);
 
