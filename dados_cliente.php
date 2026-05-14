@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: index.php"); // Expulsa quem não logou
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -118,19 +126,18 @@
                 </div>
 
                 <div class="form_group">
-                    <label><input type="radio" name="tipo"> Física</label>
+                    <label><input type="radio" name="tipo" value="fisica" required> Física</label>
                 </div>
 
                 <div class="form_group">
-                    <label><input type="radio" name="tipo" required> Jurídica</label>
+                    <label><input type="radio" name="tipo" value="juridica"> Jurídica</label>
                 </div>
             </div>
             
             <br><br>
             
-            <form action="emprestimo.html">
-                <button type="submit">Salvar</button>
-            </form>
+            <button type="submit" id="botao_cliente">Salvar</button>
+            
         </form><br><br>
     </div>
 

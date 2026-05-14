@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,7 +18,7 @@
             <h1>Seja Bem-Vindo(a) - CredTech</h1>
             <p>Tecnologia que aproxima. Crédito que transforma.</p>
 
-            <form id="formLogin">
+            <form id="formLogin" method="POST" action="salvar_dados_login.php">
                 <label for="usuario">Usuário</label><br>
                 <input type="text" id="usuario" name="usuario" placeholder="Digite o seu usuário" required><br>
                 <small id="erro_usuario"></small><br>

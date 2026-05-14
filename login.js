@@ -110,10 +110,26 @@ function validacaoAutomaticaLogin(id_usuario, erro_usuario_input, id_senha, erro
         }
 
         if(valido[0] && valido[1]){
-            sessionStorage.setItem("logado", "true");
-            window.location.href = "dados_cliente.html";
+            const formData = new FormData(form);
+
+    
+            fetch("salvar_dados_login.php", {
+                method: "POST",
+                body: formData,
+                credentials: 'same-origin'  
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.sucesso) {
+            // SÓ AGORA redireciona, pois o banco confirmou
+                window.location.href = "dados_cliente.php"; 
+                } else {
+                    alert(data.mensagem); // Mostra "Senha incorreta" vindo do PHP
+                }
+            });
         }
     });
+
 }
 
 // limpar os dados da página de login
