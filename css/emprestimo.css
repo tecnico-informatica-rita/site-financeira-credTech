@@ -1,0 +1,116 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Fundo */
+body {
+    background: url("img/emprestimo.gif") no-repeat center center fixed;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card */
+.content {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+
+    padding: 40px;
+    border-radius: 16px;
+
+    width: 100%;
+    max-width: 420px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Título */
+h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+}
+
+/* Grupos */
+.form_group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+/* Labels */
+label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #f95b10;
+    margin-bottom: 6px;
+}
+
+label span {
+    font-size: 11px;
+    color: #777;
+    margin-left: 5px;
+}
+
+/* Inputs */
+input, select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+/* Efeito foco (🔥 bonito) */
+input:focus, select:focus {
+    outline: none;
+    border-color: #f95b10;
+    box-shadow: 0 0 0 3px rgba(249, 91, 16, 0.15);
+}
+
+/* Botão */
+button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #f95b10, #ff7a2f);
+    color: white;
+    border: none;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+    margin-top: 10px;
+
+    transition: 0.3s;
+}
+
+/* Hover bonito */
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(249, 91, 16, 0.3);
+}
+
+/* Botão desabilitado */
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Erros */
+small {
+    font-size: 11px;
+    color: #ff4d4d;
+    margin-top: 3px;
+}
