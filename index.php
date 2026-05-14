@@ -27,6 +27,7 @@
                 <input type="password" id="senha" name="senha" placeholder="Digite sua senha atual" required><br>
                 <small id="erro_senha"></small><br><br>
 
+                <div id="mensagem-servidor" style="margin-bottom: 15px; font-weight: bold; font-size: 0.9em;"></div>
                 <button type="submit" id="_botao_login">Entrar</button>
                 
             </form>

@@ -55,6 +55,10 @@ function validacaoAutomaticaLogin(id_usuario, erro_usuario_input, id_senha, erro
     id_input_s.addEventListener("input", function(){
         erro_senha.textContent = "";
     });
+    id_input_u.addEventListener("input", function(){
+        erro_usuario.textContent = "";
+        document.getElementById("mensagem-servidor").textContent = ""; // Limpa a mensagem geral
+    });
 
     id_input_u.addEventListener("blur", function() {
         const resultado = validar_usuario(this.value);
@@ -84,24 +88,26 @@ function validacaoAutomaticaLogin(id_usuario, erro_usuario_input, id_senha, erro
         }
     });
 
-    form.addEventListener("submit", function(event){
-        event.preventDefault(); 
-        // Garante que validações foram disparadas
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        // Garante que as validações foram disparadas
         const resultadoU = validar_usuario(id_input_u.value);
         const resultadoS = validar_senha(id_input_s.value);
 
         valido[0] = resultadoU[0];
         valido[1] = resultadoS[0];
 
-        if (resultadoU[0] === false){
+        // Exibe erro visual para o usuário
+        if (resultadoU[0] === false) {
             erro_usuario.textContent = resultadoU[1];
             erro_usuario.style.color = "red";
         } else {
             erro_usuario.textContent = "✔";
             erro_usuario.style.color = "green";
         }
-        
-        if (resultadoS[0] === false){
+
+        if (resultadoS[0] === false) {
             erro_senha.textContent = resultadoS[1];
             erro_senha.style.color = "red";
         } else {
@@ -109,42 +115,58 @@ function validacaoAutomaticaLogin(id_usuario, erro_usuario_input, id_senha, erro
             erro_senha.style.color = "green";
         }
 
-        if(valido[0] && valido[1]){
+        // Se ambos os campos forem válidos, envia para o PHP
+        if (valido[0] && valido[1]) {
             const formData = new FormData(form);
 
-    
             fetch("salvar_dados_login.php", {
-                method: "POST",
-                body: formData,
-                credentials: 'same-origin'  
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.sucesso) {
-                    const nomeUsuario = document.getElementById(id_usuario).value;
-                    localStorage.setItem("usuarioLogado", nomeUsuario);
-                window.location.href = "boasvindas.html"; 
-                } else {
-                    alert(data.mensagem); // Mostra "Senha incorreta" vindo do PHP
-                }
-            });
+                    method: "POST",
+                    body: formData,
+                    credentials: 'same-origin'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const msgServidor = document.getElementById("mensagem-servidor");
+
+                    if (data.sucesso) {
+                        msgServidor.textContent = data.mensagem;
+                        msgServidor.style.color = "#28a745"; // Verde
+
+                        const nomeUsuario = document.getElementById(id_usuario).value;
+                        localStorage.setItem("usuarioLogado", nomeUsuario);
+
+                        setTimeout(() => {
+                            window.location.href = "boasvindas.html";
+                        }, 1000);
+
+                    } else {
+                        msgServidor.textContent = data.mensagem;
+                        msgServidor.style.color = "#dc3545"; // Vermelho
+                        document.getElementById(id_senha).value = ""; // Limpa senha em erro
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro no Fetch:", error);
+                });
         }
-    });
+    }); // Fim do EventListener do Submit
+} // Fim da Função validacaoAutomaticaLogin
 
-}
-
-// limpar os dados da página de login
+// Limpar os dados da página ao voltar/recarregar
 window.addEventListener("pageshow", function(event) {
     const form = document.getElementById("formLogin");
-    form.reset();
-    document.getElementById("erro_usuario").textContent = "";
-    document.getElementById("erro_senha").textContent = "";
+    if (form) {
+        form.reset();
+        document.getElementById("erro_usuario").textContent = "";
+        document.getElementById("erro_senha").textContent = "";
+        const msg = document.getElementById("mensagem-servidor");
+        if (msg) msg.textContent = "";
+    }
 });
 
-// remover o login assim que ele for efetuado
-//window.addEventListener("DOMContentLoaded", function() {
-  //  sessionStorage.removeItem("logado");
-//});
-
+// Inicialização da função
 validacaoAutomaticaLogin("usuario", "erro_usuario", "senha", "erro_senha", validarUsuario, validarSenha);
+    
+
+
 
