@@ -134,6 +134,7 @@ function validacaoAutomaticaLogin(id_usuario, erro_usuario_input, id_senha, erro
 
                         const nomeUsuario = document.getElementById(id_usuario).value;
                         localStorage.setItem("usuarioLogado", nomeUsuario);
+                        localStorage.setItem("tipoUsuario", data.tipo);
 
                         setTimeout(() => {
                             window.location.href = "boasvindas.html";

@@ -26,7 +26,8 @@ if ($resultado->num_rows === 1) {
     if (password_verify($senha_digitada, $dados['senha'])) {
         $_SESSION['usuario_id']   = $dados['id_login'];
         $_SESSION['usuario_nome'] = $dados['usuario'];
-        echo json_encode(["sucesso" => true, "mensagem" => "Login realizado com sucesso!"]);
+        $_SESSION['usuario_tipo']  = $dados['tipo'];
+        echo json_encode(["sucesso" => true, "mensagem" => "Login realizado com sucesso!", "tipo" => $dados['tipo']]);
     } else {
         echo json_encode(["sucesso" => false, "mensagem" => "Usuário ou senha inválidos"]);
     }
@@ -37,9 +38,11 @@ if ($resultado->num_rows === 1) {
     $stmt->bind_param('ss', $usuario, $senha);
 
     if ($stmt->execute()) {
+        $tipo = 'usuario';
         $_SESSION['usuario_id']   = $conn->insert_id;
         $_SESSION['usuario_nome'] = $usuario;
-        echo json_encode(["sucesso" => true, "mensagem" => "Usuário cadastrado com sucesso!"]);
+        $_SESSION['usuario_tipo']  = $tipo;
+        echo json_encode(["sucesso" => true, "mensagem" => "Usuário cadastrado com sucesso!", "tipo" => $tipo]);
     } else {
         echo json_encode(["sucesso" => false, "mensagem" => "Erro ao cadastrar usuário"]);
     }

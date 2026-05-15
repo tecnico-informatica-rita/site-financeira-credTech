@@ -46,6 +46,7 @@
 
             <p>Seu empréstimo foi pré-aprovado. Para concluir o processo, procure uma instituição CredTech
                 com seus documentos pessoais e comprovantes de renda e residência. </p>
+            <button id="btn_pdf_aprovado" onclick="gerarPDF('aprovado')">Exportar Resultado (PDF)</button>
         </div>
 
 
@@ -63,10 +64,13 @@
 
             <p>Tente reduzir o valor solicitado ou aumentar o número de parcelas.</p>
             <button id="botao_simular_novamente" onclick="simularNovamente()">Simular novamente</button>
+            
+            <button id="btn_pdf_reprovado" onclick="gerarPDF('reprovado')">Exportar Resultado (PDF)</button>
 
         </div>
     </div>
 
     <script src="emprestimo.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
