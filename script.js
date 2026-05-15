@@ -426,46 +426,45 @@ document.getElementById("form_cliente").addEventListener("submit", function(e){
         }
     });
 
-    /*if(valido){
-        sessionStorage.setItem("nome", document.getElementById("nome").value);
-        window.location.href = "emprestimo.html";
-    }*/
-
-
-
 
     if (valido) {
-    const formulario = document.getElementById("form_cliente");
-    const formData = new FormData(formulario);
-    const botao = document.getElementById("botao_cliente");
+        const formulario = document.getElementById("form_cliente");
+        const formData = new FormData(formulario);
+        const botao = document.getElementById("botao_cliente");
+        const feedback = document.getElementById("mensagem_feedback"); // ← veio pra cá
 
-    botao.disabled = true;
-    botao.textContent = "Salvando...";
+        botao.disabled = true;
+        botao.textContent = "Salvando...";
 
-    fetch("salvar_dados_cliente.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.sucesso) {
-            // Agora sim, após salvar no banco, guardamos o nome e vamos para a próxima tela
-            sessionStorage.setItem("nome", document.getElementById("nome").value);
-            alert(data.mensagem);
-            window.location.href = "emprestimo.html";
-        } else {
-            alert("Erro ao salvar: " + data.mensagem);
+        fetch("salvar_dados_cliente.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {                                                  
+            if (data.sucesso) {
+                sessionStorage.setItem("nome", document.getElementById("nome").value);
+                feedback.textContent = data.mensagem;
+                feedback.style.color = "green";
+                feedback.style.display = "block";
+                setTimeout(() => window.location.href = "emprestimo.html", 2000);
+            } else {
+                feedback.textContent = data.mensagem;
+                feedback.style.color = "red";
+                feedback.style.display = "block";
+                botao.disabled = false;
+                botao.textContent = "Salvar";
+            }
+        })
+        .catch(erro => {
+            console.error("Erro:", erro);
+            feedback.textContent = "Erro de conexão com o servidor.";
+            feedback.style.color = "red";
+            feedback.style.display = "block";
             botao.disabled = false;
             botao.textContent = "Salvar";
-        }
-    })
-    .catch(erro => {
-        console.error("Erro:", erro);
-        alert("Erro de conexão com o servidor.");
-        botao.disabled = false;
-        botao.textContent = "Salvar";
-    });
-}
+        });
+    }
 });
 
 validacaoAutomatica("cidade", "erro_cidade", validarTexto);
