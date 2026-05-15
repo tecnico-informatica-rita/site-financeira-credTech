@@ -224,3 +224,70 @@ function verificarEmprestimo(valor_pretendido, renda, parcelas){
     }
 }
 
+async function gerarPDF(status) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Configurações de estilo
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("CredTech - Simulação de Empréstimo", 20, 20);
+    
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Data: ${new Date().toLocaleDateString('pt-BR')}`, 20, 30);
+    doc.line(20, 35, 190, 35); // Linha divisória
+
+    if (status === 'aprovado') {
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(40, 167, 69); // Verde
+        doc.text("STATUS: PRÉ-APROVADO", 20, 45);
+        
+        doc.setTextColor(0, 0, 0); // Preto
+        doc.setFont("helvetica", "normal");
+        
+        // Pegando os dados da tela
+        const dados = [
+            `Valor Pretendido: R$ ${document.getElementById("res_valor").innerText}`,
+            `Taxa de Juros: ${document.getElementById("res_taxa").innerText}% ao mês`,
+            `Valor dos Juros: R$ ${document.getElementById("res_juros").innerText}`,
+            `Total com Juros: R$ ${document.getElementById("res_total").innerText}`,
+            `Parcelas: ${document.getElementById("res_parcelas").innerText}x`,
+            `Valor da Parcela: R$ ${document.getElementById("res_parcela").innerText}`
+        ];
+
+        let y = 60;
+        dados.forEach(linha => {
+            doc.text(linha, 20, y);
+            y += 10;
+        });
+
+    } else {
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(220, 53, 69); // Vermelho
+        doc.text("STATUS: REPROVADO", 20, 45);
+        
+        doc.setTextColor(0, 0, 0);
+        doc.setFont("helvetica", "normal");
+
+        const dados = [
+            `Renda Mensal: R$ ${document.getElementById("res_renda").innerText}`,
+            `Margem (30% da renda): R$ ${document.getElementById("res_30").innerText}`,
+            `Valor Pretendido: R$ ${document.getElementById("res_valor_r").innerText}`,
+            `Parcela Calculada: R$ ${document.getElementById("res_parcela_r").innerText}`
+        ];
+
+        let y = 60;
+        dados.forEach(linha => {
+            doc.text(linha, 20, y);
+            y += 10;
+        });
+    }
+
+    doc.setFontSize(10);
+    doc.text("Este documento é apenas uma simulação e não garante a aprovação do crédito.", 20, 150);
+    
+    // Nome do arquivo baseado no nome do usuário salvo no login
+    const nomeUsuario = localStorage.getItem("usuarioLogado") || "cliente";
+    doc.save(`Simulacao_CredTech_${nomeUsuario}.pdf`);
+}
