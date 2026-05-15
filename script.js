@@ -426,10 +426,46 @@ document.getElementById("form_cliente").addEventListener("submit", function(e){
         }
     });
 
-    if(valido){
+    /*if(valido){
         sessionStorage.setItem("nome", document.getElementById("nome").value);
         window.location.href = "emprestimo.html";
-    }
+    }*/
+
+
+
+
+    if (valido) {
+    const formulario = document.getElementById("form_cliente");
+    const formData = new FormData(formulario);
+    const botao = document.getElementById("botao_cliente");
+
+    botao.disabled = true;
+    botao.textContent = "Salvando...";
+
+    fetch("salvar_dados_cliente.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.sucesso) {
+            // Agora sim, após salvar no banco, guardamos o nome e vamos para a próxima tela
+            sessionStorage.setItem("nome", document.getElementById("nome").value);
+            alert(data.mensagem);
+            window.location.href = "emprestimo.html";
+        } else {
+            alert("Erro ao salvar: " + data.mensagem);
+            botao.disabled = false;
+            botao.textContent = "Salvar";
+        }
+    })
+    .catch(erro => {
+        console.error("Erro:", erro);
+        alert("Erro de conexão com o servidor.");
+        botao.disabled = false;
+        botao.textContent = "Salvar";
+    });
+}
 });
 
 validacaoAutomatica("cidade", "erro_cidade", validarTexto);

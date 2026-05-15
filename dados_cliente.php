@@ -117,6 +117,7 @@ if (!isset($_SESSION['usuario_id'])) {
                         <option value="SE">Sergipe</option>
                         <option value="TO">Tocantins</option>
                     </select>
+                    <small id="erro_estado"></small>  
                 </div>
             </div>
             
