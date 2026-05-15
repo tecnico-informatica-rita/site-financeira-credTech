@@ -306,17 +306,41 @@ img{
     position: relative;
     background: linear-gradient(145deg, #FF6B00, #ff7b1f);
     border-radius: 28px;
-    padding: 40px;
-    min-height: 420px;
+    padding: 28px;
+    min-height: 300px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     box-shadow: 0 20px 40px rgba(255,107,0,0.20)
 }
+.quadro-um::before{
+    content: "";
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 220px;
+    height: 220px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
+    filter: blur(10px);
+}
+.quadro-um img{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 75px;
+    opacity: 0.15;
+    transform: rotate(-10deg);
+    pointer-events: none;
+}
+.quadro-um-conteudo{
+    position: relative;
+    z-index: 2;
+}
 .quadro-um-conteudo h3{
     color: #FFFFFF;
-    font-size: 38px;
+    font-size: 30px;
     line-height: 1.2;
     margin-bottom: 16px;
     max-width: 320px;
@@ -351,7 +375,7 @@ img{
 .quadro-dois{
     background: #FFFFFF;
     border-radius: 28px;
-    padding: 40px;
+    padding: 28px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.04);
 }
 .quadro-dois-topo{
@@ -361,7 +385,7 @@ img{
     margin-bottom: 35px;
 }
 .quadro-dois-topo h3{
-    font-size: 38px;
+    font-size: 28px;
     line-height: 1.2;
     max-width: 300px;
 }
@@ -395,7 +419,7 @@ img{
     margin-bottom: 8px;
 }
 .valor h2{
-    font-size: 42px;
+    font-size: 30px;
     color: #111827;
     margin-bottom: 30px;
 }
@@ -442,7 +466,7 @@ img{
     margin-bottom: 8px;
 }
 .info h3{
-    font-size: 32px;
+    font-size: 22px;
     color: #111827;
 }
 .btn-simular-card{
