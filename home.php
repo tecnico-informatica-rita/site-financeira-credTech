@@ -22,6 +22,7 @@
         <nav class="menu">
             <a href="#">Simulador</a>
             <a href="#">Empréstimos</a>
+            <a href="#">Clientes</a>
             <a href="#">Sobre nós</a>
             <a href="#">Central de Ajuda</a>
         </nav>
@@ -49,24 +50,24 @@
                 
                 <!--Frase com uma figura de Cadeado-->
                 <div class="security-info">
-                    <img src="#" alt="Ícone de segurança">
+                    <img src="img/cadeado.png" alt="Ícone de segurança">
                     <p>Seus dados protegidos com segurança de ponta.</p>
                 </div>
 
                 <!--Dados-->
                 <div class="hero-data">
                     <div class="data-item">
-                        <img src="#" alt="Numero_Clientes">
+                        <img src="img/usuario.png" alt="Numero_Clientes">
                         <h3>+250 mil</h3>
                         <p>clientes</p>
                     </div>
                     <div class="data-item">
-                        <img src="#" alt="Numero_Creditos">
+                        <img src="img/baixar.png" alt="Numero_Creditos">
                         <h3>+R$ 1,2 bi</h3>
                         <p>em créditos liberados</p>
                     </div>
                     <div class="data-item">
-                        <img src="#" alt="Numero_Aprovacao">
+                        <img src="img/aprovado.png" alt="Aprovação">
                         <h3>98%</h3>
                         <p>de aprovação</p>
                     </div>
@@ -78,21 +79,21 @@
 
                 <!--Card Principal-->
                 <div class="card-security">
-                    <img src="#" alt="Selo_Segurança">
+                    <img src="img/seguranca.png" alt="Selo_Segurança">
                     <h3>Segurança que você pode confiar.</h3>
                     <p>Tecnologia avançada para proteger o que é seu.</p>
                     
                     <div class="security-list">
                         <div class="security-item">
-                            <img src="#" alt="Check">
+                            <img src="img/check.png" alt="Check">
                             <p>Criptografia de ponta a ponta.</p>
                         </div>
                         <div class="security-item">
-                            <img src="#" alt="Check">
+                            <img src="img/check.png" alt="Check">
                             <p>Análise inteligente de risco.</p>
                         </div>
                         <div class="security-item">
-                            <img src="#" alt="Check">
+                            <img src="img/check.png" alt="Check">
                             <p>Privacidade garantida.</p>
                         </div>
                     </div>
@@ -107,7 +108,7 @@
         <section class="segunda-parte">
             <!--Quadro 1-->
             <div class="quadro-um">
-                <img src="#" alt="Ilustração de moedas digitais">
+                <img src="img/moedas.png" alt="Ilustração de moedas digitais">
                 <!--Texto do quadro-->
                 <div class="quadro-um-conteudo">
                     <h3>Dinheiro na conta em poucos minutos.</h3>
