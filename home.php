@@ -22,7 +22,7 @@
         <nav class="menu">
             <a href="#">Simulador</a>
             <a href="#">Empréstimos</a>
-            <a href="#">Clientes</a>
+            <a href="dados_cliente.php">Clientes</a>
             <a href="#">Sobre nós</a>
             <a href="#">Central de Ajuda</a>
         </nav>
