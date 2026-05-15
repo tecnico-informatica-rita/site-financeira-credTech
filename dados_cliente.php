@@ -117,6 +117,7 @@ if (!isset($_SESSION['usuario_id'])) {
                         <option value="SE">Sergipe</option>
                         <option value="TO">Tocantins</option>
                     </select>
+                    <small id="erro_estado"></small>  
                 </div>
             </div>
             
@@ -136,6 +137,7 @@ if (!isset($_SESSION['usuario_id'])) {
             
             <br><br>
             
+            <div id="mensagem_feedback" style="display:none; margin-top: 10px; font-weight: bold;"></div>
             <button type="submit" id="botao_cliente">Salvar</button>
             
         </form><br><br>
