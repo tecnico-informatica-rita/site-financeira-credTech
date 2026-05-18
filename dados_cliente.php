@@ -139,6 +139,9 @@ if (!isset($_SESSION['usuario_id'])) {
             
             <div id="mensagem_feedback" style="display:none; margin-top: 10px; font-weight: bold;"></div>
             <button type="submit" id="botao_cliente">Salvar</button>
+            <button type="button" onclick="history.back()">Voltar</button>
+            
+    
             
         </form><br><br>
     </div>

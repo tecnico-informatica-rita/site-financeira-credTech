@@ -20,12 +20,11 @@
         </div>
         <!--Navegação-->
         <nav class="menu">
-            <a href="#">Simulador</a>
-            <a href="#">Empréstimos</a>
+            <a href="simulador.html">Simulador</a>
 
             <a href="clientes.php">Clientes</a>
-            <a href="#">Sobre nós</a>
-            <a href="#">Central de Ajuda</a>
+            <a href="sobre_nos.html">Sobre nós</a>
+            <a href="central_ajuda.html">Central de Ajuda</a>
         </nav>
         <div class="header-buttons">
             <a href="despedida.html" class="btn-sair">
