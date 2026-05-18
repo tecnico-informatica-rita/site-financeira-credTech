@@ -14,7 +14,7 @@ if (empty($usuario) || empty($senha_digitada)) {
     exit;
 }
 
-$sql  = "SELECT id_login, usuario, senha FROM dados_login WHERE usuario = ?";
+$sql  = "SELECT id_login, usuario, senha, tipo FROM dados_login WHERE usuario = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('s', $usuario);
 $stmt->execute();
@@ -25,8 +25,8 @@ if ($resultado->num_rows === 1) {
 
     if (password_verify($senha_digitada, $dados['senha'])) {
         $_SESSION['usuario_id']   = $dados['id_login'];
-        $_SESSION['usuario'] = $usuario;
-        $_SESSION['tipo']    = $tipo;
+        $_SESSION['usuario'] = $dados['usuario'];
+        $_SESSION['tipo']    = $dados['tipo'];
         echo json_encode(["sucesso" => true, "mensagem" => "Login realizado com sucesso!", "tipo" => $dados['tipo']]);
     } else {
         echo json_encode(["sucesso" => false, "mensagem" => "Usuário ou senha inválidos"]);
