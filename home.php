@@ -169,27 +169,31 @@
         <section class="terceira-parte">
             <div class="text-terc">
                 <span>Por que escolher a CredTech?</span>
-                <h2>Tecnologia para <span class="text-orange">simplificar</span> sua vida financeira.</h2>
+                <h2>
+                    Tecnologia para 
+                    <span class="text-orange">simplificar</span> 
+                    sua vida financeira.
+                </h2>
             </div>
 
             <div class="cards-terc">
                 <div class="card-dados">
-                    <img src="#" alt="Ícone de aplicativo digital">
+                    <img src="img/telefone.png" alt="Ícone de aplicativo digital">
                     <h4>100% Digital</h4>
                     <p>Contrate do seu jeito, onde estiver, a qualquer hora.</p>
                 </div>
                 <div class="card-dados">
-                    <img src="#" alt="Ícone de raio">
+                    <img src="img/raio.png" alt="Ícone de raio">
                     <h4>Liberação rápida</h4>
                     <p>Dinheiro na conta em minutos.</p>
                 </div>
                 <div class="card-dados">
-                    <img src="#" alt="Ícone de porcentagem">
+                    <img src="img/porcentagem.png" alt="Ícone de porcentagem">
                     <h4>Taxas justas</h4>
                     <p>Condições transparentes e que cabem no seu bolso.</p>
                 </div>
                 <div class="card-dados">
-                    <img src="#" alt="Ícone de fone">
+                    <img src="img/fone.png" alt="Ícone de fone">
                     <h4>Atendimento humano</h4>
                     <p>Suporte de verdade sempre que precisar.</p>
                 </div>
@@ -197,15 +201,18 @@
         </section>
 
         <section class="quarta-parte">
-            <div class="text-qua">
-                <span>Cartão CredTech</span>
-                <h2>Mais liberdade para o seu dia a dia.</h2>
-                <p>Compre, pague e controle tudo diretamente pelo app.</p>
-                <a href="#" class="btn-cartao">Pedir meu cartão →</a>
-            </div>
-
-            <div class="img-cartao">
-                <img src="img/cartao.png" alt="Cartão CredTech">
+            <div class="quarta-container">
+                <div class="text-qua">
+                    <p>Cartão CredTech</p>
+                    <h2>Mais liberdade para o seu dia a dia.</h2>
+                    <p>Use seu cartão digital com segurança, controle total pelo app e vantagens exclusivas.</p>
+                    <a href="#" class="btn-cartao">
+                        Pedir meu cartão →
+                    </a>
+                </div>
+                <div class="img-cartao">
+                    <img src="img/cartao1.png" alt="Cartão CredTech e Smartphone">
+                </div>
             </div>
         </section>
 
@@ -272,14 +279,14 @@
                 <!-- Coluna 1: Logo e Descrição da Empresa -->
                 <div class="footer-column footer-company-info">
                     <div class="footer-logo">
-                        <img src="#" alt="Logo_CredTech_Footer"> <!-- Placeholder para o seu logo -->
+                        <img src="img/logo.png" alt="Logo_CredTech_Footer"> <!-- Placeholder para o seu logo -->
                     </div>
                     <p class="footer-description">Sua fintech de crédito digital confiável e rápida. Cuidando das suas finanças com tecnologia.</p>
                     <div class="social-icons">
                         <!-- Placeholders para os ícones de mídia social -->
-                        <a href="#"><img src="#" alt="Facebook"></a> 
-                        <a href="#"><img src="#" alt="LinkedIn"></a>
-                        <a href="#"><img src="#" alt="Instagram"></a>
+                        <a href="#"><img src="img/facebook.png" alt="Facebook"></a> 
+                        <a href="#"><img src="img/linkedin.png" alt="LinkedIn"></a>
+                        <a href="#"><img src="img/instagram.png" alt="Instagram"></a>
                     </div>
                 </div>
 
@@ -319,4 +326,23 @@
         </section>
     </footer>
 </body>
+
+<script>
+    const perguntas = document.querySelectorAll('.pergunta-qui');
+
+    perguntas.forEach(pergunta => {
+        const botao = pergunta.querySelector('.questao-qui');
+        
+        botao.addEventListener('click', () => {
+            // Fecha as outras que estiverem abertas (opcional)
+            perguntas.forEach(item => {
+                if(item !== pergunta) item.classList.remove('ativa');
+            });
+            
+            // Alterna a classe 'ativa' na pergunta clicada
+            pergunta.classList.toggle('ativa');
+        });
+    });
+</script>
+
 </html>
