@@ -505,3 +505,89 @@ img{
     background: #e55d00;
     transform: translateY(-2px);
 }
+
+/* ========================= TERCEIRA PARTE ========================= */
+.terceira-parte{
+    max-width: 1200px;
+    margin: 120px auto;
+    padding: 0 20px;
+
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 70px;
+    align-items: center;
+}
+/* ===== Texto esquerda ===== */
+.text-terc span{
+    color: #FF6B00;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.text-terc h2{
+    margin-top: 18px;
+    font-size: 52px;
+    line-height: 1.05;
+    letter-spacing: -3px;
+    font-weight: 700;
+    max-width: 560px;
+}
+/* deixa o "simplificar" igual ao modelo */
+.text-terc h2 .text-orange{
+    font-size: inherit;
+    font-weight: 700;
+}
+/* ===== Grid dos cards ===== */
+.cards-terc{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+}
+/* linha vertical */
+.cards-terc::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 100%;
+    background: #e5e7eb;
+}
+/* linha horizontal */
+.cards-terc::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 1px;
+    background: #e5e7eb;
+}
+/* ===== Cards ===== */
+.card-dados{
+    padding: 38px;
+    min-height: 190px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.card-dados img{
+    width: 42px;
+    margin-bottom: 22px;
+}
+.card-dados h4{
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #111827;
+}
+.card-dados p{
+    color: #6b7280;
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 260px;
+}
