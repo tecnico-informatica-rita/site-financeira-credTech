@@ -3,52 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulação Mock | CredTech</title>
+  <title>Simulação | CredTech</title>
 
-  <!-- Fontes e Ícones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Arquivo CSS Externo -->
   <link rel="stylesheet" href="css/simulacao.css">
+
+  <style>
+    /* STEPS */
+    .steps {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 24px 0 32px;
+    }
+    .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+    .step-circle {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: #ccc;
+    }
+    .step-label {
+        font-size: 0.75rem;
+        color: #aaa;
+        white-space: nowrap;
+    }
+    .step-line {
+        flex: 1;
+        height: 2px;
+        background: #ddd;
+        margin-bottom: 20px;
+    }
+    /* done = passo concluído */
+    .step.done .step-circle {
+        background: #27ae60;
+        color: white;
+        border-color: #27ae60;
+    }
+    .step.done .step-label { color: #27ae60; }
+    .step-line.done { background: #27ae60; }
+    /* active = passo atual */
+    .step.active .step-circle {
+        border-color: #2c3e50;
+        color: #2c3e50;
+        font-weight: 800;
+    }
+    .step.active .step-label {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ================= HEADER ================= -->
-    <header class="header">
-        <div class="logo">
-            <a href="home.html">
-                <img src="img/logo.png" alt="Logo CredTech">
-            </a>
-        </div>
-        <nav class="menu">
-            <a href="#" class="menu-ativo">Simulador</a>
-            <a href="dados_clientes.php">Clientes</a>
-            <a href="#">Sobre nós</a>
-            <a href="#">Central de Ajuda</a>
-            
-        </nav>
-        <div class="header-buttons">
-            <a href="despedida.html" class="btn-sair">
-                <i class="fa-solid fa-right-from-bracket"></i>
-            </a>
-        </div>
-    </header>
+  <header class="header">
+    <div class="logo">
+      <a href="home.html">
+        <img src="img/logo.png" alt="Logo CredTech">
+      </a>
+    </div>
+    <nav class="menu">
+      <a href="#" class="menu-ativo">Simulador</a>
+      <a href="clientes.php">Clientes</a>
+      <a href="#">Sobre nós</a>
+      <a href="#">Central de Ajuda</a>
+    </nav>
+    <div class="header-buttons">
+      <a href="despedida.html" class="btn-sair">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </a>
+    </div>
+  </header>
 
   <div class="page-wrapper">
 
-    <!-- CLIENT -->
-    <div class="client-chip">
-      <div class="chip-avatar">JS</div>
+    <!-- STEPS -->
+    <div class="steps">
+        <div class="step done">
+            <div class="step-circle"><i class="fa-solid fa-check" style="font-size:0.8rem"></i></div>
+            <span class="step-label">Selecionar cliente</span>
+        </div>
+
+        <div class="step-line done"></div>
+
+        <div class="step active">
+            <div class="step-circle">2</div>
+            <span class="step-label">Simulação</span>
+        </div>
+
+        <div class="step-line"></div>
+
+        <div class="step pending">
+            <div class="step-circle">3</div>
+            <span class="step-label">Proposta</span>
+        </div>
+    </div>
+
+    <!-- CLIENT CHIP -->
+    <div class="client-chip" id="clienteChip">
+      <div class="chip-avatar" id="chipAvatar">?</div>
       <div>
         <small>Simulando para</small><br>
-        <strong>João Silva</strong>
+        <strong id="chipNome">—</strong>
       </div>
     </div>
 
     <div class="sim-layout">
 
-      <!-- SIMULADOR -->
       <div class="sim-card">
         <h2>Simulação</h2>
         <p>Ajuste valor e prazo</p>
@@ -70,12 +143,10 @@
           <span>Parcelas</span>
           <strong id="parcelas">24x</strong>
         </div>
-
         <div class="info-row">
           <span>Parcela</span>
           <strong id="parcela">R$ 725,98</strong>
         </div>
-
         <div class="info-row">
           <span>Total</span>
           <strong id="total">R$ 17.423,52</strong>
@@ -84,7 +155,6 @@
         <button class="btn">Gerar proposta</button>
       </div>
 
-      <!-- SIDEBAR -->
       <div class="sim-card">
         <h3>Resumo</h3>
         <p id="resumo">Valor: R$ 15.000</p>
@@ -93,41 +163,52 @@
     </div>
   </div>
 
-  <!-- Arquivo JavaScript Externo -->
-  <script src="script.js"></script>
-</body>
 <script>
-    let valor = 15000;
+// Recupera o cliente selecionado no passo 1
+const clienteSalvo = sessionStorage.getItem("clienteSelecionado");
+if (clienteSalvo) {
+    const c = JSON.parse(clienteSalvo);
+    document.getElementById("chipNome").innerText   = c.nome;
+    document.getElementById("chipAvatar").innerText = c.nome.split(" ").map(n => n[0]).slice(0,2).join("");
+}
+
+let valor = 15000;
 let prazo = 24;
 
 function format(v) {
-  return v.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+    return v.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
 }
 
 function calc(pv, n, i = 0.0119) {
-  return pv * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+    return pv * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
 }
 
 function update() {
-  let pmt = calc(valor, prazo);
-  document.getElementById('valorDisplay').innerText = format(valor);
-  document.getElementById('parcelas').innerText = prazo + "x";
-  document.getElementById('parcela').innerText = "R$ " + format(pmt);
-  document.getElementById('total').innerText = "R$ " + format(pmt * prazo);
-  document.getElementById('resumo').innerText = "Valor: R$ " + format(valor);
+    let pmt = calc(valor, prazo);
+    document.getElementById('valorDisplay').innerText = format(valor);
+    document.getElementById('parcelas').innerText     = prazo + "x";
+    document.getElementById('parcela').innerText      = "R$ " + format(pmt);
+    document.getElementById('total').innerText        = "R$ " + format(pmt * prazo);
+    document.getElementById('resumo').innerText       = "Valor: R$ " + format(valor);
+
+    // Atualiza botões de prazo
+    document.querySelectorAll('.prazo-btn').forEach(btn => {
+        btn.classList.toggle('selected', btn.innerText === prazo + 'x');
+    });
 }
 
 document.getElementById('slider').addEventListener('input', e => {
-  valor = +e.target.value;
-  update();
+    valor = +e.target.value;
+    update();
 });
 
 function setPrazo(p) {
-  prazo = p;
-  update();
+    prazo = p;
+    update();
 }
 
-// Inicializa a tela com os valores padrões
 update();
 </script>
+
+</body>
 </html>

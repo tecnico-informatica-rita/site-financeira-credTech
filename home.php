@@ -20,7 +20,7 @@
         </div>
         <!--Navegação-->
         <nav class="menu">
-            <a href="simulador.html">Simulador</a>
+            <a href="simulador.php">Simulador</a>
 
             <a href="clientes.php">Clientes</a>
             <a href="sobre_nos.html">Sobre nós</a>
