@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulação Mock | CredTech</title>
+
+  <!-- Fontes e Ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Arquivo CSS Externo -->
+  <link rel="stylesheet" href="css/simulacao.css">
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+    <header class="header">
+        <div class="logo">
+            <a href="home.html">
+                <img src="img/logo.png" alt="Logo CredTech">
+            </a>
+        </div>
+        <nav class="menu">
+            <a href="#" class="menu-ativo">Simulador</a>
+            <a href="dados_clientes.php">Clientes</a>
+            <a href="#">Sobre nós</a>
+            <a href="#">Central de Ajuda</a>
+            
+        </nav>
+        <div class="header-buttons">
+            <a href="despedida.html" class="btn-sair">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+        </div>
+    </header>
+
+  <div class="page-wrapper">
+
+    <!-- CLIENT -->
+    <div class="client-chip">
+      <div class="chip-avatar">JS</div>
+      <div>
+        <small>Simulando para</small><br>
+        <strong>João Silva</strong>
+      </div>
+    </div>
+
+    <div class="sim-layout">
+
+      <!-- SIMULADOR -->
+      <div class="sim-card">
+        <h2>Simulação</h2>
+        <p>Ajuste valor e prazo</p>
+
+        <div class="val-display">
+          R$ <span id="valorDisplay">15.000,00</span>
+        </div>
+
+        <input type="range" id="slider" min="1000" max="50000" step="500" value="15000">
+
+        <div class="prazo-options">
+          <div class="prazo-btn" onclick="setPrazo(6)">6x</div>
+          <div class="prazo-btn" onclick="setPrazo(12)">12x</div>
+          <div class="prazo-btn selected" onclick="setPrazo(24)">24x</div>
+          <div class="prazo-btn" onclick="setPrazo(36)">36x</div>
+        </div>
+
+        <div class="info-row">
+          <span>Parcelas</span>
+          <strong id="parcelas">24x</strong>
+        </div>
+
+        <div class="info-row">
+          <span>Parcela</span>
+          <strong id="parcela">R$ 725,98</strong>
+        </div>
+
+        <div class="info-row">
+          <span>Total</span>
+          <strong id="total">R$ 17.423,52</strong>
+        </div>
+
+        <button class="btn">Gerar proposta</button>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="sim-card">
+        <h3>Resumo</h3>
+        <p id="resumo">Valor: R$ 15.000</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Arquivo JavaScript Externo -->
+  <script src="script.js"></script>
+</body>
+<script>
+    let valor = 15000;
+let prazo = 24;
+
+function format(v) {
+  return v.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+}
+
+function calc(pv, n, i = 0.0119) {
+  return pv * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+}
+
+function update() {
+  let pmt = calc(valor, prazo);
+  document.getElementById('valorDisplay').innerText = format(valor);
+  document.getElementById('parcelas').innerText = prazo + "x";
+  document.getElementById('parcela').innerText = "R$ " + format(pmt);
+  document.getElementById('total').innerText = "R$ " + format(pmt * prazo);
+  document.getElementById('resumo').innerText = "Valor: R$ " + format(valor);
+}
+
+document.getElementById('slider').addEventListener('input', e => {
+  valor = +e.target.value;
+  update();
+});
+
+function setPrazo(p) {
+  prazo = p;
+  update();
+}
+
+// Inicializa a tela com os valores padrões
+update();
+</script>
+</html>
