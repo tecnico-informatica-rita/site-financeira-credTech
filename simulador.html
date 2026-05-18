@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="img/icon.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <title>Simulação | CredTech</title>
+
+    <!-- Vínculo com o arquivo CSS externo -->
+    <link rel="stylesheet" href="css/simulador.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+    <div class="logo">
+        <a href="#">
+            <img src="img/logo.png" alt="Logo CredTech">
+        </a>
+    </div>
+
+    <nav class="menu">
+        <a href="#" class="active">Simulador</a>
+        <a href="#">Empréstimos</a>
+        <a href="#">Clientes</a>
+        <a href="#">Sobre nós</a>
+        <a href="#">Central de Ajuda</a>
+    </nav>
+
+    <a class="btn-sair" href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="page-wrapper">
+
+    <div class="page-header">
+        <div class="breadcrumb">
+            <a href="#">Início</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Simulador</span>
+        </div>
+
+        <span class="label">Passo 1 de 2</span>
+        <h1>Selecione um <span>cliente</span></h1>
+        <p>Escolha o cliente para simulação.</p>
+    </div>
+
+    <!-- STEPS -->
+    <div class="steps">
+        <div class="step active">
+            <div class="step-circle">1</div>
+            <span class="step-label">Selecionar cliente</span>
+        </div>
+
+        <div class="step-line"></div>
+
+        <div class="step pending">
+            <div class="step-circle">2</div>
+            <span class="step-label">Simulação</span>
+        </div>
+
+        <div class="step-line"></div>
+
+        <div class="step pending">
+            <div class="step-circle">3</div>
+            <span class="step-label">Proposta</span>
+        </div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="search" placeholder="Buscar cliente...">
+        </div>
+
+        <button class="btn-novo" onclick="openModal()">
+            <i class="fa-solid fa-plus"></i> Novo cliente
+        </button>
+    </div>
+
+    <p class="clients-count">
+        <strong id="total"></strong> clientes encontrados
+    </p>
+
+    <!-- GRID -->
+    <div class="clients-grid" id="grid"></div>
+
+</main>
+
+<!-- FLOAT BAR -->
+<div class="float-bar" id="floatBar">
+    <div class="float-bar-info">
+        <div class="float-bar-avatar" id="avatar">?</div>
+        <div class="float-bar-text">
+            <p>Cliente selecionado</p>
+            <strong id="nomeSel">—</strong>
+        </div>
+    </div>
+
+    <button class="btn-continuar" onclick="irSimulacao()">
+        Continuar <i class="fa-solid fa-arrow-right"></i>
+    </button>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+    <div class="modal">
+        <div class="modal-header">
+            <div>
+                <span class="label">Novo cadastro</span>
+                <h2>Cliente</h2>
+                <p>Preencha os dados</p>
+            </div>
+            <button class="btn-fechar" onclick="closeModal()">✕</button>
+        </div>
+
+        <div class="form-grid">
+            <input id="nome" placeholder="Nome completo">
+            <input id="cpf" placeholder="CPF">
+            <input id="telefone" placeholder="Telefone">
+            <input id="email" placeholder="Email" class="full">
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancelar" onclick="closeModal()">Cancelar</button>
+            <button class="btn-salvar" onclick="addCliente()">
+                <i class="fa-solid fa-floppy-disk"></i> Salvar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMsg"></span>
+</div>
+
+<script>
+/* ================= MOCK DB ================= */
+let clientes = [
+    { id: 1, nome: "Maria Oliveira", cpf: "111", email: "maria@email.com", telefone: "119999" },
+    { id: 2, nome: "João Silva", cpf: "222", email: "joao@email.com", telefone: "219888" },
+    { id: 3, nome: "Ana Souza", cpf: "333", email: "ana@email.com", telefone: "319777" }
+];
+
+let selected = null;
+
+/* ================= RENDER ================= */
+function render(list = clientes) {
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+
+    document.getElementById("total").innerText = list.length;
+
+    list.forEach(c => {
+        const card = document.createElement("div");
+        card.className = "client-card";
+
+        const iniciais = c.nome.split(" ").map(n => n[0]).slice(0,2).join("");
+
+        card.innerHTML = `
+            <div class="client-avatar">${iniciais}</div>
+            <div class="client-name">${c.nome}</div>
+            <div class="client-meta">
+                <span><i class="fa-solid fa-envelope"></i>${c.email}</span>
+                <span><i class="fa-solid fa-phone"></i>${c.telefone}</span>
+            </div>
+            <div class="client-cpf"><i class="fa-solid fa-id-card"></i>${c.cpf}</div>
+        `;
+
+        card.onclick = () => select(c, card);
+        grid.appendChild(card);
+    });
+}
+
+/* ================= SELECT ================= */
+function select(c, el) {
+    document.querySelectorAll(".client-card").forEach(e => e.classList.remove("selected"));
+    el.classList.add("selected");
+
+    selected = c;
+
+    document.getElementById("avatar").innerText = c.nome[0];
+    document.getElementById("nomeSel").innerText = c.nome;
+
+    document.getElementById("floatBar").classList.add("show");
+}
+
+/* ================= SEARCH ================= */
+document.getElementById("search").addEventListener("input", e => {
+    const q = e.target.value.toLowerCase();
+    render(clientes.filter(c =>
+        (c.nome + c.cpf + c.email).toLowerCase().includes(q)
+    ));
+});
+
+/* ================= NAV ================= */
+function irSimulacao() {
+    if (!selected) return;
+    alert("Cliente: " + selected.nome);
+}
+
+/* ================= MODAL ================= */
+function openModal() {
+    document.getElementById("modal").classList.add("open");
+}
+function closeModal() {
+    document.getElementById("modal").classList.remove("open");
+}
+
+/* ================= ADD ================= */
+function addCliente() {
+    clientes.push({
+        id: Date.now(),
+        nome: nome.value,
+        cpf: cpf.value,
+        telefone: telefone.value,
+        email: email.value
+    });
+
+    render();
+    closeModal();
+    toast("Cliente adicionado!");
+}
+
+/* ================= TOAST ================= */
+function toast(msg) {
+    const t = document.getElementById("toast");
+    document.getElementById("toastMsg").innerText = msg;
+    t.classList.add("show");
+
+    setTimeout(() => t.classList.remove("show"), 2500);
+}
+
+/* INIT */
+render();
+</script>
+
+</body>
+</html>

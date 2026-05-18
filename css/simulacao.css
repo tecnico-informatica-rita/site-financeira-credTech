@@ -1,0 +1,218 @@
+/* ===== BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --orange: #FF6B00;
+  --orange-d: #e55d00;
+  --dark: #111827;
+  --mid: #4b5563;
+  --light: #6b7280;
+  --border: #e5e7eb;
+  --bg: #F5F7F4;
+  --white: #fff;
+  --radius-lg: 28px;
+  --shadow-sm: 0 4px 20px rgba(0,0,0,.04);
+  --shadow-or: 0 20px 40px rgba(255,107,0,.18);
+}
+
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+}
+
+/* ========================= HEADER ========================= */
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 80px;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo img { width: 150px; object-fit: contain; }
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.menu a {
+    position: relative;
+    font-size: 15px;
+    font-weight: 600;
+    color: #4b5563;
+    transition: var(--transition);
+}
+
+.menu a:hover,
+.menu a.menu-ativo { color: var(--accent-color); }
+
+.menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background: var(--accent-color);
+    transition: var(--transition);
+}
+
+.menu a:hover::after,
+.menu a.menu-ativo::after { width: 100%; }
+
+.btn-sair {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-color);
+    border-radius: 12px;
+    font-size: 18px;
+    transition: var(--transition);
+}
+
+.btn-sair:hover {
+    background: var(--accent-color);
+    color: #fff;
+    transform: translateY(-2px);
+}
+/* ===== WRAPPER ===== */
+.page-wrapper {
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+/* ===== CHIP ===== */
+.client-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  padding: 10px 18px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  margin-bottom: 25px;
+}
+
+.chip-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+}
+
+/* ===== LAYOUT ===== */
+.sim-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 25px;
+}
+
+/* ===== CARD ===== */
+.sim-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 35px;
+  box-shadow: var(--shadow-sm);
+}
+
+.sim-card h2 {
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.sim-card p {
+  color: var(--light);
+  margin-bottom: 20px;
+}
+
+/* VALUE */
+.val-display {
+  font-size: 42px;
+  font-weight: 800;
+  margin: 15px 0;
+}
+
+.val-display span {
+  font-size: 22px;
+  color: var(--mid);
+}
+
+/* SLIDER */
+input[type=range] {
+  width: 100%;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  border: 5px solid var(--orange);
+}
+
+/* PRAZO */
+.prazo-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.prazo-btn {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.prazo-btn.selected {
+  border-color: var(--orange);
+  background: #fff3ec;
+}
+
+/* INFO */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* BTN */
+.btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  border: none;
+  border-radius: 14px;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--orange-d);
+}
