@@ -33,7 +33,7 @@ $usuario    = $_SESSION['usuario'] ?? '';
     </div>
 
     <nav class="menu">
-        <a href="simulador.html">Simulador</a>
+        <a href="simulador.php">Simulador</a>
         <a href="clientes.php" class="menu-ativo">Clientes</a>
         <a href="sobre_nos.html">Sobre nós</a>
         <a href="central_ajuda.html"><span class="laranja">Central</span> de Ajuda</a>
@@ -329,7 +329,7 @@ Nenhum cliente cadastrado ainda.</td></tr>
             <div class="footer-column">
                 <h3>Institucional</h3>
                 <ul>
-                    <li><a href="simulador.html">Simulador</a></li>
+                    <li><a href="simulador.php">Simulador</a></li>
                     <li><a href="clientes.php">Simulador</a></li>
                     <li><a href="sobre_nos.html">Sobre nós</a></li>
                     <li><a href="central_ajuda.html">Central de Ajuda</a></li>

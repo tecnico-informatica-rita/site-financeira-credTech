@@ -45,7 +45,7 @@
                 
                 <!--Botão para simular-->
                 <div class="hero-buttons">
-                    <a href="#" class="btn-simular">Simular agora →</a>
+                    <a href="simulador.php" class="btn-simular">Simular agora →</a>
                 </div>
                 
                 <!--Frase com uma figura de Cadeado-->
@@ -115,7 +115,7 @@
                     <p>Processo simples, 100% digital e sem burocracia.</p>
                 </div>
                 <!--Botão para Fazer Empréstimo-->
-                <a href="#" class="btn-seta">→</a>
+                <a href="simulador.php" class="btn-seta">→</a>
             </div>
 
             <!--Quadro 2-->
@@ -160,7 +160,7 @@
                         </div>
                     </div>
                     <!--Botão para simular-->
-                    <a href="#" class="btn-simular-card">Simular agora</a>
+                    <a href="simulador.php" class="btn-simular-card">Simular agora</a>
                 </div>
             </div>
         </section>
@@ -268,7 +268,7 @@
             <div class="footer-cta-content">
                 <h2>Realize mais com a CredTech.</h2>
                 <p>Crédito inteligente para transformar seus planos em conquistas.</p>
-                <a href="#" class="btn-cta-footer">Simular agora →</a>
+                <a href="simulador.php" class="btn-cta-footer">Simular agora →</a>
             </div>
         </section>
 
@@ -293,9 +293,8 @@
                 <div class="footer-column">
                     <h3>Institucional</h3>
                     <ul>
-                        <li><a href="#">Simulador</a></li>
-                        <li><a href="#">Empréstimos</a></li>
-                        <li><a href="#">Sobre nós</a></li>
+                        <li><a href="simulador.php">Simulador</a></li>
+                        <li><a href="sobre_nos.html">Sobre nós</a></li>
                         <li><a href="#">Central de Ajuda</a></li>
                     </ul>
                 </div>
